@@ -1,0 +1,27 @@
+targets:
+  $default:
+    builders:
+      json_serailizer_parts:
+        generate_for:
+        - test/*
+        - lib/*
+      json_serailizer_factory:
+        generate_for:
+        - test/*
+        - lib/*
+builders:
+  json_serailizer_parts:
+      import: "package:json_serailizer_factory/builders.dart"
+      builder_factories: ["jsonPartBuilder"]
+      build_extensions: {".dart": ["json_serializable_part.g.part"]}
+      auto_apply: dependents
+      build_to: cache
+      runs_before: ["json_serailizer_factory"]
+  json_serailizer_factory:
+      import: "package:json_serailizer_factory/builders.dart"
+      builder_factories: ["jsonSerializerFactoryBuilder"]
+      build_extensions: {".dart": ["json_serializable_factory.g.part"]}
+      auto_apply: dependents
+      build_to: source
+
+      
